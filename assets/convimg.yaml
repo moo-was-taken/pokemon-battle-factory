@@ -1,0 +1,145 @@
+# !! NOTE !!
+#
+# Each appvar should contain exactly 100 sprites:
+#     - helps simplify appvar indexing logic in code
+#     - contributes minimal file "bloat" (appvars are near full capacity) 
+
+# !! TODO !!
+#
+#   Priority: LOW
+# Create an automated pipeline to generate a desired convimg.yaml file from 
+#     discovered assets, then output relevant binaries and source files in
+#     their respective directories.
+#
+#     While the current graphics system is meant to be minimally extensible by
+#     nature, it is sufficiently brittle enough to warrant conideration for
+#     significant architectural re-design in the future.
+
+palettes:
+  - name: palette
+    fixed-entries:
+      - color: {index: 0, r: 255, g: 255, b: 255}
+    quality: 10
+    images: automatic
+
+converts:
+  - name: gfx_0
+    palette: palette
+  # style: rlet <-- this compresses surprisingly worse
+    compress: zx0
+    images:
+      - sprites/group_0/*
+
+  - name: gfx_1
+    palette: palette
+    compress: zx0
+    images:
+      - sprites/group_1/*
+
+  - name: gfx_2
+    palette: palette
+    compress: zx0
+    images:
+      - sprites/group_2/*
+
+  - name: gfx_3
+    palette: palette
+    compress: zx0
+    images:
+      - sprites/group_3a/* # Split group to preserve desired ordering since
+      - sprites/group_3b/* # front and back sprites share same pokedex indexing
+
+  - name: gfx_4
+    palette: palette
+    compress: zx0
+    images:
+      - sprites/group_4/*
+
+  - name: gfx_5
+    palette: palette
+    compress: zx0
+    images:
+      - sprites/group_5/*
+
+  - name: gfx_6
+    palette: palette
+    compress: zx0
+    images:
+      - sprites/group_6/*
+
+  - name: gfx_7
+    palette: palette
+    compress: zx0
+    images:
+      - sprites/group_7/*
+
+outputs:
+  - type: c
+  # include-file: gfx.h <-- default anyway
+    directory: ../source/graphics
+    palettes:
+      - palette
+
+  - type: appvar
+    name: PkmnGfx0
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_0
+
+  - type: appvar
+    name: PkmnGfx1
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_1
+
+  - type: appvar
+    name: PkmnGfx2
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_2
+
+  - type: appvar
+    name: PkmnGfx3
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_3
+
+  - type: appvar
+    name: PkmnGfx4
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_4
+
+  - type: appvar
+    name: PkmnGfx5
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_5
+
+  - type: appvar
+    name: PkmnGfx6
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_6
+
+  - type: appvar
+    name: PkmnGfx7
+    directory: ../output
+    lut-entries: true
+    lut-entry-size: 2
+    converts:
+      - gfx_7
